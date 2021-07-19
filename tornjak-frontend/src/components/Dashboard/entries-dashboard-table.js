@@ -38,6 +38,17 @@ class EntriesDashBoardTable extends React.Component {
     }
   }
 
+  agentMetadata(parentid) {
+    if (this.props.globalAgents.globalAgentsWorkLoadAttestorInfo !== undefined) {
+      var check_id = this.props.globalAgents.globalAgentsWorkLoadAttestorInfo.filter(agent => (agent.spiffeid) === parentid);
+      if (check_id.length !== 0) {
+        return check_id[0]
+      } else {
+        return {"plugin":"", "cluster":""}
+      }
+    }
+  }
+
   workloadEntry(entry) {
     var thisSpiffeId = "spiffe://" + entry.spiffe_id.trust_domain + entry.spiffe_id.path
     var thisParentId = "spiffe://" + entry.parent_id.trust_domain + entry.parent_id.path
