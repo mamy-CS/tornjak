@@ -57,6 +57,15 @@ class AgentDashboardTable extends React.Component {
     }
   }
 
+  numberEntries(spiffeid){
+    if (typeof this.props.globalEntries.globalEntriesList !== 'undefined') {
+      var entriesList = this.props.globalEntries.globalEntriesList.filter(entry => ("spiffe://" + entry.parent_id.trust_domain + entry.parent_id.path) === spiffeid);
+      return entriesList.length
+    } else {
+      return 0
+    }
+  }
+
   agent(entry) {
     var thisSpiffeid = "spiffe://" + entry.id.trust_domain + entry.id.path;
     // get status
