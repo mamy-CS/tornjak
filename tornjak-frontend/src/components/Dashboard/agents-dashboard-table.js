@@ -46,6 +46,17 @@ class AgentDashboardTable extends React.Component {
     }
   }
 
+  agentMetadata(spiffeid) {
+    if (this.props.globalAgents.globalAgentsWorkLoadAttestorInfo !== undefined) {
+      var check_id = this.props.globalAgents.globalAgentsWorkLoadAttestorInfo.filter(agent => (agent.spiffeid) === spiffeid);
+      if (check_id.length !== 0) {
+        return check_id[0]
+      } else {
+        return {"plugin":"", "cluster":""}
+      }
+    }
+  }
+
   agent(entry) {
     var thisSpiffeid = "spiffe://" + entry.id.trust_domain + entry.id.path;
     // get status
