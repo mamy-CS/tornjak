@@ -45,6 +45,26 @@ class ClusterDashboardTable extends React.Component {
     return sum
   }
 
+  numberAgentEntries(spiffeid) {
+    if (typeof this.props.globalEntries.globalEntriesList !== 'undefined') {
+      var entriesList = this.props.globalEntries.globalEntriesList.filter(entry => spiffeid === ("spiffe://" + entry.parent_id.trust_domain + entry.parent_id.path))
+      return entriesList.length
+    } else {
+      return 0
+    }
+  }
+
+  numberClusterEntries(entry) {
+    var entriesPerAgent = entry.agentsList.map(currentAgent => {
+      return this.numberAgentEntries(currentAgent);
+    })
+    var sum = 0;
+    for (let i = 0; i < entriesPerAgent.length; i++) {
+      sum += entriesPerAgent[i]
+    }
+    return sum
+  }
+
   cluster(entry) {
     return {
       id: entry.name,

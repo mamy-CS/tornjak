@@ -15,6 +15,22 @@ class AgentsPieChart extends React.Component {
     }
   }
 
+class AgentsPieChart extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  agent(entry) {
+    var spiffeid = "spiffe://" + entry.id.trust_domain + entry.id.path
+    if (this.props.globalEntries.globalEntriesList !== 'undefined') {
+      var check_id = this.props.globalEntries.globalEntriesList.filter(thisentry => (spiffeid) === "spiffe://" + thisentry.parent_id.trust_domain + thisentry.parent_id.path);
+    }
+    return {
+      "group": spiffeid,
+      "value": check_id.length,
+    }
+  }
+
   agentList() {
     if (typeof this.props.globalAgents.globalAgentsList !== 'undefined') {
       var valueMapping = this.props.globalAgents.globalAgentsList.map(currentAgent => {
