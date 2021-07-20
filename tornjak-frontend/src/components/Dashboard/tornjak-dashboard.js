@@ -1,7 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios'; // TODO remove and place into tornjak helpiers
-import GetApiServerUri from '../helpers';
 import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 // Components
@@ -37,7 +35,6 @@ import {
   serverInfoUpdateFunc,
   selectorInfoFunc,
   tornjakMessageFunc,
-  workloadSelectInforFunc,
   agentworkloadSelectorInfoFunc,
   clustersListUpdateFunc,
 } from 'redux/actions';
