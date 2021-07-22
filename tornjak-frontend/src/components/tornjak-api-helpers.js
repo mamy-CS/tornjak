@@ -102,8 +102,9 @@ class TornjakApi extends Component {
   populateTornjakAgentInfo = (serverName, agentworkloadSelectorInfoFunc, inputData) => {
     axios.post(GetApiServerUri("/manager-api/tornjak/agents/list/") + serverName, inputData,
               { crossdomain: true,
-              }) // TODO change backend to handle params
+              })
       .then(response => {
+        console.log(response.data);
         agentworkloadSelectorInfoFunc(response.data["agents"]);
       })
       .catch((error) => {
@@ -115,7 +116,7 @@ class TornjakApi extends Component {
   populateLocalTornjakAgentInfo = (agentworkloadSelectorInfoFunc, inputData) => {
     axios.post(GetApiServerUri("/api/tornjak/agents/list/"), inputData,
               { crossdomain: true,
-              }) // TODO change backend to handle params
+              })
       .then(response => {
         agentworkloadSelectorInfoFunc(response.data["agents"])
       })
