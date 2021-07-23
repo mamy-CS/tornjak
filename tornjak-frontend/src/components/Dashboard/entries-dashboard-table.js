@@ -73,7 +73,7 @@ class EntriesDashBoardTable extends React.Component {
   }
 
   entryList() {
-    if (typeof this.props.globalEntriesList !== 'undefined') {
+    if (typeof this.props.globalEntriesList !== 'undefined' && typeof this.props.globalEntriesList.globalEntriesList !== 'undefined') {
       return this.props.globalEntriesList.globalEntriesList.map(currentEntry => {
         return this.workloadEntry(currentEntry);
       })
