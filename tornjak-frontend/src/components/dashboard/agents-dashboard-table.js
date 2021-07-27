@@ -25,17 +25,6 @@ class AgentDashboardTable extends React.Component {
     this.SpiffeEntryInterface = new SpiffeEntryInterface() 
   }
 
-  agentMetadata(spiffeid) {
-    if (typeof this.props.globalAgents.globalAgentsWorkLoadAttestorInfo !== 'undefined') {
-      var check_id = this.props.globalAgents.globalAgentsWorkLoadAttestorInfo.filter(agent => (agent.spiffeid) === spiffeid);
-      if (check_id.length !== 0) {
-        return check_id[0]
-      } else {
-        return {"plugin":"", "cluster":""}
-      }
-    }
-  }
-
   numberEntries(spiffeid) {
     if (typeof this.props.globalEntries.globalEntriesList !== 'undefined') {
       var entriesList = this.props.globalEntries.globalEntriesList.filter(entry => {
@@ -56,7 +45,7 @@ class AgentDashboardTable extends React.Component {
     // get status
     var status = this.SpiffeEntryInterface.getAgentStatusString(entry)
     // get tornjak metadata
-    var metadata_entry = this.agentMetadata(thisSpiffeid);
+    var metadata_entry = this.SpiffeEntryInterface.getAgentMetadata(thisSpiffeid, this.props.globalAgents.globalAgentsWorkLoadAttestorInfo);
     var plugin = "None"
     var cluster = "None"
     if (typeof metadata_entry["plugin"] !== 'undefined' && metadata_entry["plugin"].length !== 0) {

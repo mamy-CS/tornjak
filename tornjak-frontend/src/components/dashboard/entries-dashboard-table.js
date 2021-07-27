@@ -27,22 +27,11 @@ class EntriesDashBoardTable extends React.Component {
     this.SpiffeEntryInterface = new SpiffeEntryInterface();
   }
 
-  agentMetadata(parentid) {
-    if (typeof this.props.globalAgents.globalAgentsWorkLoadAttestorInfo !== 'undefined') {
-      var check_id = this.props.globalAgents.globalAgentsWorkLoadAttestorInfo.filter(agent => (agent.spiffeid) === parentid);
-      if (check_id.length !== 0) {
-        return check_id[0]
-      } else {
-        return {"plugin":"", "cluster":""}
-      }
-    }
-  }
-
   workloadEntry(entry) {
     var thisSpiffeId = this.SpiffeEntryInterface.getEntrySpiffeid(entry)
     var thisParentId = this.SpiffeEntryInterface.getEntryParentid(entry)
     // get tornjak metadata
-    var metadata_entry = this.agentMetadata(thisParentId);
+    var metadata_entry = this.SpiffeEntryInterface.getAgentMetadata(thisParentId, this.props.globalAgents.globalAgentsWorkLoadAttestorInfo);
     var plugin = "None"
     var cluster = "None"
     if (metadata_entry["plugin"].length !== 0) {

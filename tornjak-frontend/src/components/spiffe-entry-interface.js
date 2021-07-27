@@ -70,6 +70,17 @@ class SpiffeEntryInterface extends Component {
     }
   }
 
+  getAgentMetadata(spiffeid, metadataList) {
+    console.log(metadataList)
+    if (typeof metadataList !== 'undefined') {
+      var metadata = metadataList.filter(agent => (agent.spiffeid === spiffeid));
+      if (metadata.length !== 0) {
+        return metadata[0]
+      }
+    }
+    return {"plugin":"", "cluster":""}
+  }
+
 }
 
 export default SpiffeEntryInterface;
