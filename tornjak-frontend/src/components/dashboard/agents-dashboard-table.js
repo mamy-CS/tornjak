@@ -7,7 +7,7 @@ import SpiffeEntryInterface from '../spiffe-entry-interface';
 
 const columns = [
   { field: "spiffeid", headerName: "Name", flex: 1, renderCell: renderCellExpand },
-  { field: "noEntries", headerName: "Number of Entries", width: 200 },
+  { field: "numEntries", headerName: "Number of Entries", width: 200 },
   { field: "status", headerName: "Status", width: 120 },
   { field: "platformType", headerName: "Platform Type", width: 170 },
   { field: "clusterName", headerName: "Cluster Name", width: 190 }
@@ -31,7 +31,7 @@ class AgentDashboardTable extends React.Component {
       if (check_id.length !== 0) {
         return check_id[0]
       } else {
-        return {}
+        return {"plugin":"", "cluster":""}
       }
     }
   }
@@ -68,7 +68,7 @@ class AgentDashboardTable extends React.Component {
     return {
       id: thisSpiffeid,
       spiffeid: thisSpiffeid,
-      noEntries: this.numberEntries(thisSpiffeid),
+      numEntries: this.numberEntries(thisSpiffeid),
       status: status,
       platformType: plugin,
       clusterName: cluster,

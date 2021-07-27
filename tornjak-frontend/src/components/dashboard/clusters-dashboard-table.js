@@ -38,10 +38,9 @@ class ClusterDashboardTable extends React.Component {
     var entriesPerAgent = entry.agentsList.map(currentAgent => {
       return this.numberAgentEntries(currentAgent);
     })
-    var sum = 0;
-    for (let i = 0; i < entriesPerAgent.length; i++) {
-      sum += entriesPerAgent[i]
-    }
+    var sum = entriesPerAgent.reduce((acc, curVal) => {
+      return acc + curVal;
+    })
     return sum
   }
 
@@ -57,9 +56,7 @@ class ClusterDashboardTable extends React.Component {
 
   clusterList() {
     if (typeof this.props.globalClustersList !== 'undefined') {
-      return this.props.globalClustersList.map(currentCluster => {
-        return this.cluster(currentCluster);
-      })
+      return this.props.globalClustersList.map(a => this.cluster(a) )
     } else {
       return []
     }
