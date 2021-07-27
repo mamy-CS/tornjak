@@ -4,10 +4,9 @@ import Link from '@material-ui/core/Link';
 import Title from './title';
 import { withStyles } from '@material-ui/core/styles';
 import { DataGrid, GridToolbar } from "@material-ui/data-grid";
-
+import SpiffeEntryInterface from '../spiffe-entry-interface';
 
 const columns = [
-  //{ field: "id", headerName: "ID", width: 100 },
   { field: "name", headerName: "Name", width: 200 },
   { field: "created", headerName: "Created", width: 300 },
   { field: "numNodes", headerName: "Number Of Nodes", width: 300},
@@ -25,9 +24,16 @@ const styles = theme => ({
 });
 
 class ClusterDashboardTable extends React.Component {
+  constructor(props) {
+    super(props);
+    this.SpiffeEntryInterface = new SpiffeEntryInterface()
+  }
+
   numberAgentEntries(spiffeid) {
     if (typeof this.props.globalEntries.globalEntriesList !== 'undefined') {
-      var entriesList = this.props.globalEntries.globalEntriesList.filter(entry => spiffeid === ("spiffe://" + entry.parent_id.trust_domain + entry.parent_id.path))
+      var entriesList = this.props.globalEntries.globalEntriesList.filter(entry => {
+        return spiffeid === (this.SpiffeEntryInterface.getEntryParentid(entry))
+      })
       return entriesList.length
     } else {
       return 0
