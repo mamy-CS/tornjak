@@ -29,8 +29,21 @@ class SpiffeEntryInterface extends Component {
     }
   }
 
+  // check if format strictly adhered to
+  checkSpiffeidValidity(trust_domain, path) {
+    if (typeof trust_domain === 'undefined' || typeof path === 'undefined') {
+      return false
+    } else if (trust_domain.charAt(0) === '/') {
+      return false
+    } else if (trust_domain.slice(-1) === "/" && path.charAt(0) !== "/") {
+      return true
+    } else {
+      return (trust_domain.slice(-1) !== "/" && path.charAt(0) === "/")
+    }
+  }
+
   getAgentSpiffeid(entry) {
-    if (typeof entry !== 'undefined') {
+    if (typeof entry !== 'undefined' && this.checkSpiffeidValidity(entry.id.trust_domain, entry.id.path)) {
       return "spiffe://" + entry.id.trust_domain + entry.id.path
     } else {
       return ""
@@ -38,7 +51,7 @@ class SpiffeEntryInterface extends Component {
   }
 
   getEntrySpiffeid(entry) {
-    if (typeof entry !== 'undefined') {
+    if (typeof entry !== 'undefined' && this.checkSpiffeidValidity(entry.spiffe_id.trust_domain, entry.spiffe_id.path)) {
       return "spiffe://" + entry.spiffe_id.trust_domain + entry.spiffe_id.path
     } else {
       return ""
@@ -46,7 +59,7 @@ class SpiffeEntryInterface extends Component {
   }
 
   getEntryParentid(entry) {
-    if (typeof entry !== 'undefined') {
+    if (typeof entry !== 'undefined' && this.checkSpiffeidValidity(entry.parent_id.trust_domain, entry.parent_id.path)) {
       return "spiffe://" + entry.parent_id.trust_domain + entry.parent_id.path
     } else {
       return ""
